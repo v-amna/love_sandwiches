@@ -27,11 +27,11 @@ def get_sales_data():
     by commas.the loop will repeatedly request data, until its valid.
     """
     while True:
-        print("please enter sales data from the last market.")
-        print("data should be six numbers, seperated by commas.")
+        print("please enter sales data from the last market.\n")
+        print("data should be six numbers, seperated by commas.\n")
         print("Example:10,20,30,40,50,60\n")
 
-        data_str=input("enter your data here: ")
+        data_str=input("enter your data here: \n")
 
         #print(f"The data provided is{data_str}")
 
@@ -124,6 +124,18 @@ def get_last_5_entries_sales():
     return columns
         
     
+def calculate_stock_data(data):
+    """
+    calculate avarage stock for the each item type,adding 10%
+    """
+    print("calculating stock data....\n")
+    new_stock_data=[]
+    for column in data:
+        int_column=[int(num)for num in column]
+        avarage=sum(int_column)/len(int_column)
+        stock_num=avarage*1.1
+        new_stock_data.append(round(stock_num))
+    return new_stock_data   
 
 
 
@@ -135,11 +147,11 @@ def main():
     
     sales_data=[int(num)for num in data]  
     update_worksheet(sales_data,"sales")
-   
     new_surplus_data=calculate_surplus_data(sales_data)
-    #print(new_surplus_data)
     update_worksheet(new_surplus_data,"surplus")
+    sales_columns=get_last_5_entries_sales()
+    stock_data=calculate_stock_data(sales_columns)
+    update_worksheet(stock_data,"stock")
 
 print("Welcome to love Sandwiches Data Automation")
-#main()    
-sales_columns=get_last_5_entries_sales()
+main()    
